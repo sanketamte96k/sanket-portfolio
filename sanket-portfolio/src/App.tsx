@@ -9,7 +9,13 @@ import {
   Code2,
   Sparkles,
   Layers,
-  GraduationCap
+  GraduationCap,
+  ExternalLink,
+  ShieldAlert,
+  Cpu,
+  ShoppingBag,
+  Info,
+  Clock
 } from 'lucide-react'
 import './App.css'
 
@@ -64,7 +70,6 @@ export default function App() {
     const rect = cardRef.current.getBoundingClientRect()
     const x = e.clientX - rect.left - rect.width / 2
     const y = e.clientY - rect.top - rect.height / 2
-    // Limit rotation to max +/- 7 degrees for refined feel
     const rotateY = (x / (rect.width / 2)) * 7
     const rotateX = -(y / (rect.height / 2)) * 7
     setTilt({ x: rotateX, y: rotateY })
@@ -98,6 +103,18 @@ export default function App() {
     },
   }
 
+  const cardEntrance: Variants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 28 },
+    visible: (custom: number = 0) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: shouldReduceMotion ? 0.05 : 0.7,
+        delay: shouldReduceMotion ? 0 : custom * 0.15,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    }),
+  }
 
   return (
     <div className="portfolio-canvas">
@@ -216,7 +233,7 @@ export default function App() {
               </motion.div>
             </motion.div>
 
-            {/* Right Column: 5. & 6. Cinematic 3D Portrait Area with Orbits & Fallback */}
+            {/* Right Column: Cinematic 3D Portrait Area with Orbits & Fallback */}
             <motion.div
               className="hero-right"
               initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.94 }}
@@ -301,55 +318,318 @@ export default function App() {
           </div>
         </section>
 
-        {/* Working Anchor Targets for Work, About, and Contact */}
-        <section id="work" className="preview-section" aria-label="Work Section Preview">
-          <div className="preview-section-card">
-            <span className="preview-section-tag">
+        {/* ==========================================================================
+            SELECTED ENGINEERING PROJECTS SHOWCASE (#work)
+            ========================================================================== */}
+        <section id="work" className="projects-section" aria-label="Featured Projects Showcase">
+          <div className="section-header-block">
+            <div className="section-eyebrow">
               <Layers size={14} aria-hidden="true" />
-              <span>Anchor Target • Explore My Work</span>
-            </span>
-            <h2 className="preview-section-title">Selected Engineering Projects</h2>
-            <p className="preview-section-desc">
-              High-concurrency Java microservices, Spring Boot backends, and responsive React web
-              applications. Full project showcases and deep-dive case studies will be integrated in
-              the next phase.
+              <span>Selected Engineering Projects</span>
+            </div>
+            <h2 className="section-title">
+              Featured Software &amp; <span className="section-title-gradient">System Architectures</span>
+            </h2>
+            <p className="section-subtitle">
+              Verified real-world implementations across cybersecurity forensics, system concurrency, and production e-commerce architectures.
             </p>
           </div>
+
+          <motion.div
+            className="projects-grid"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+          >
+            {/* PROJECT 1: ForensiMail */}
+            <motion.article
+              className="project-card"
+              variants={cardEntrance}
+              custom={1}
+              aria-labelledby="project-forensimail-title"
+            >
+              {/* CSS-Based Visual Preview */}
+              <div className="card-visual-preview" aria-hidden="true">
+                <div className="preview-window-bar">
+                  <div className="window-dots">
+                    <span className="window-dot dot-red" />
+                    <span className="window-dot dot-yellow" />
+                    <span className="window-dot dot-green" />
+                  </div>
+                  <span className="window-title">Forensic Inspector</span>
+                  <span className="window-badge">RFC-822 / MIME</span>
+                </div>
+                <div className="preview-body">
+                  <div className="forensics-threat-bar">
+                    <span className="threat-score-label">
+                      <ShieldAlert size={12} />
+                      AI Threat Score
+                    </span>
+                    <span className="threat-score-val">84 / 100 [CRITICAL]</span>
+                  </div>
+                  <div className="forensics-auth-row">
+                    <span className="auth-badge">SPF: PASS</span>
+                    <span className="auth-badge">DKIM: PASS</span>
+                    <span className="auth-badge">DMARC: ALIGNED</span>
+                  </div>
+                  <div className="route-trace-mini">
+                    <span>Origin: <span className="trace-node">185.220.101.5</span></span>
+                    <span>➔</span>
+                    <span>Relay Hop</span>
+                    <span>➔</span>
+                    <span className="trace-node">Target MX</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card Content */}
+              <div className="card-content-area">
+                <div className="card-category-badge">
+                  <ShieldAlert size={14} aria-hidden="true" />
+                  <span>Cybersecurity &amp; Threat Forensics</span>
+                </div>
+
+                <div className="card-title-group">
+                  <h3 id="project-forensimail-title" className="card-project-title">ForensiMail</h3>
+                  <span className="card-project-tagline">AI-Powered Email Threat Detection &amp; GeoLocation Platform</span>
+                </div>
+
+                <p className="card-project-description">
+                  Investigates suspicious emails, brand impersonations, and malicious mail relays with evidence-backed attribution. Implements RFC/MIME email parsing, SPF/DKIM/DMARC authentication verification, sequential hop route tracing with IP geolocation, typosquatting domain detection, multi-factor NLP risk scoring (0–100), and automated forensic PDF report generation.
+                </p>
+
+                <div className="card-tech-list" aria-label="Technologies used in ForensiMail">
+                  <span className="card-tech-pill">FastAPI</span>
+                  <span className="card-tech-pill">Python</span>
+                  <span className="card-tech-pill">React 18</span>
+                  <span className="card-tech-pill">TypeScript</span>
+                  <span className="card-tech-pill">TailwindCSS</span>
+                  <span className="card-tech-pill">Recharts</span>
+                  <span className="card-tech-pill">OAuth 2.0</span>
+                  <span className="card-tech-pill">jsPDF</span>
+                </div>
+
+                <div className="card-action-bar">
+                  <span className="action-status-badge">
+                    <Info size={13} aria-hidden="true" />
+                    <span>Local Platform • Repository Upload Pending</span>
+                  </span>
+                </div>
+              </div>
+            </motion.article>
+
+            {/* PROJECT 2: ThreadX */}
+            <motion.article
+              className="project-card"
+              variants={cardEntrance}
+              custom={2}
+              aria-labelledby="project-threadx-title"
+            >
+              {/* CSS-Based Visual Preview */}
+              <div className="card-visual-preview" aria-hidden="true">
+                <div className="preview-window-bar">
+                  <div className="window-dots">
+                    <span className="window-dot dot-red" />
+                    <span className="window-dot dot-yellow" />
+                    <span className="window-dot dot-green" />
+                  </div>
+                  <span className="window-title">Thread Engine Monitor</span>
+                  <span className="window-badge">JVM Runtime</span>
+                </div>
+                <div className="preview-body">
+                  <div className="thread-terminal-header">
+                    <span>Worker Thread Pool</span>
+                    <span>Max Capacity: 8</span>
+                  </div>
+                  <div className="thread-list-mock">
+                    <div className="thread-row">
+                      <span className="thread-name">Worker-Thread-01</span>
+                      <span className="thread-state-pill state-running">RUNNING</span>
+                    </div>
+                    <div className="thread-row">
+                      <span className="thread-name">Worker-Thread-02</span>
+                      <span className="thread-state-pill state-idle">IDLE</span>
+                    </div>
+                    <div className="thread-row">
+                      <span className="thread-name">Worker-Thread-03</span>
+                      <span className="thread-state-pill state-running">RUNNING</span>
+                    </div>
+                  </div>
+                  <div className="thread-metrics-bar">
+                    <span>Active: 2 Tasks</span>
+                    <span>Queue: 0 Tasks</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card Content */}
+              <div className="card-content-area">
+                <div className="card-category-badge">
+                  <Cpu size={14} aria-hidden="true" />
+                  <span>Systems &amp; Java Core</span>
+                </div>
+
+                <div className="card-title-group">
+                  <h3 id="project-threadx-title" className="card-project-title">ThreadX</h3>
+                  <span className="card-project-tagline">Concurrency &amp; Multi-Threaded Execution Engine</span>
+                </div>
+
+                <p className="card-project-description">
+                  Engineered around multi-threaded processing, task scheduling, and concurrency control. Implementation files and public repository link are currently awaiting upload from the developer.
+                </p>
+
+                <div className="card-tech-list" aria-label="Technologies used in ThreadX">
+                  <span className="card-tech-pill">Java</span>
+                  <span className="card-tech-pill">Concurrency</span>
+                  <span className="card-tech-pill">Multithreading</span>
+                  <span className="card-tech-pill">OOP</span>
+                  <span className="card-tech-pill">Task Scheduling</span>
+                </div>
+
+                <div className="card-action-bar">
+                  <span className="action-status-badge">
+                    <Clock size={13} aria-hidden="true" />
+                    <span>In Development • Details Pending Input</span>
+                  </span>
+                </div>
+              </div>
+            </motion.article>
+
+            {/* PROJECT 3: Flipkart Clone Pro */}
+            <motion.article
+              className="project-card"
+              variants={cardEntrance}
+              custom={3}
+              aria-labelledby="project-flipkart-title"
+            >
+              {/* CSS-Based Visual Preview */}
+              <div className="card-visual-preview" aria-hidden="true">
+                <div className="preview-window-bar">
+                  <div className="window-dots">
+                    <span className="window-dot dot-red" />
+                    <span className="window-dot dot-yellow" />
+                    <span className="window-dot dot-green" />
+                  </div>
+                  <span className="window-title">Storefront &amp; Admin</span>
+                  <span className="window-badge">Railway Deployed</span>
+                </div>
+                <div className="preview-body">
+                  <div className="ecommerce-search-mock">
+                    <ShoppingBag size={12} />
+                    <span>Search products, brands and categories...</span>
+                  </div>
+                  <div className="category-chips-mock">
+                    <span className="cat-chip">Mobiles</span>
+                    <span className="cat-chip">Laptops</span>
+                    <span className="cat-chip">Fashion</span>
+                    <span className="cat-chip">Electronics</span>
+                  </div>
+                  <div className="product-card-mock">
+                    <div className="mock-price-group">
+                      <span className="mock-price">₹49,999</span>
+                      <span className="mock-discount">-35% OFF</span>
+                    </div>
+                    <span className="mock-cart-btn">Add to Cart</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card Content */}
+              <div className="card-content-area">
+                <div className="card-category-badge">
+                  <ShoppingBag size={14} aria-hidden="true" />
+                  <span>Full-Stack E-Commerce</span>
+                </div>
+
+                <div className="card-title-group">
+                  <h3 id="project-flipkart-title" className="card-project-title">Flipkart Clone Pro</h3>
+                  <span className="card-project-tagline">Full-Stack E-Commerce Platform &amp; Admin Management Portal</span>
+                </div>
+
+                <p className="card-project-description">
+                  A full-stack e-commerce web platform inspired by Flipkart. Implements secure Bcrypt user authentication, dynamic product catalog with real-time search &amp; multi-tier filtering, persistent shopping cart &amp; wishlist, multi-step checkout with mock payments, and a role-based administrative portal for complete order, customer, and inventory management.
+                </p>
+
+                <div className="card-tech-list" aria-label="Technologies used in Flipkart Clone Pro">
+                  <span className="card-tech-pill">Python (Flask)</span>
+                  <span className="card-tech-pill">SQLAlchemy</span>
+                  <span className="card-tech-pill">MySQL</span>
+                  <span className="card-tech-pill">Vanilla JS</span>
+                  <span className="card-tech-pill">HTML5 / CSS3</span>
+                  <span className="card-tech-pill">Docker</span>
+                  <span className="card-tech-pill">Railway</span>
+                </div>
+
+                <div className="card-action-bar">
+                  <a
+                    href="https://flipkart-clone-production-0c44.up.railway.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="action-btn-primary"
+                    aria-label="Open Flipkart Clone Live Demo in a new tab"
+                  >
+                    <span>Live Demo</span>
+                    <ExternalLink size={13} aria-hidden="true" />
+                  </a>
+
+                  <a
+                    href="https://github.com/sanketamte96k/Flipkart-clone"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="action-btn-secondary"
+                    aria-label="View Flipkart Clone repository on GitHub in a new tab"
+                  >
+                    <GitHubIcon size={14} />
+                    <span>View on GitHub</span>
+                  </a>
+                </div>
+              </div>
+            </motion.article>
+          </motion.div>
         </section>
 
+        {/* ==========================================================================
+            ABOUT SECTION (Preserved)
+            ========================================================================== */}
         <section id="about" className="preview-section" aria-label="About Section Preview">
           <div className="preview-section-card">
             <span className="preview-section-tag">
               <Code2 size={14} aria-hidden="true" />
-              <span>Anchor Target • About Me</span>
+              <span>Academic &amp; Engineering Profile • About Me</span>
             </span>
-            <h2 className="preview-section-title">Background & Academic Profile</h2>
+            <h2 className="preview-section-title">Background &amp; Academic Focus</h2>
             <p className="preview-section-desc">
-              Pursuing B.Tech in Information Technology at Zeal College of Engineering and Research,
-              Pune. Focused on system architecture, data structures, algorithms, and clean full-stack
-              engineering.
+              Pursuing a B.Tech in Information Technology at Zeal College of Engineering and Research,
+              Pune (CGPA: 8.86). Specialized in core Java, OOP, data structures, and database architectures,
+              with hands-on project experience in full-stack web platforms, Python/Flask backends, and modern
+              reactive user interfaces.
             </p>
           </div>
         </section>
 
+        {/* ==========================================================================
+            CONTACT SECTION (Preserved & Enhanced with Verified Contact Info)
+            ========================================================================== */}
         <section id="contact" className="preview-section" aria-label="Contact Section Preview">
           <div className="preview-section-card">
             <span className="preview-section-tag">
               <Mail size={14} aria-hidden="true" />
-              <span>Anchor Target • Get In Touch</span>
+              <span>Get In Touch • Open for Opportunities</span>
             </span>
             <h2 className="preview-section-title">Let's Connect</h2>
             <p className="preview-section-desc">
-              Looking for a motivated full-stack engineer ready to add immediate value? Feel free to
-              reach out directly or connect on professional channels.
+              Actively seeking full-stack developer roles and high-impact software engineering internships.
+              Feel free to reach out directly via email or connect on LinkedIn and GitHub.
             </p>
             <div className="preview-contact-grid">
               <a
-                href="mailto:sanketamte.dev@gmail.com"
+                href="mailto:sanketamte6584@gmail.com"
                 className="preview-contact-item"
+                title="Send an email to Sanket Amte"
               >
                 <Mail size={16} className="highlight-violet" aria-hidden="true" />
-                <span>sanketamte.dev@gmail.com</span>
+                <span>sanketamte6584@gmail.com</span>
               </a>
               <div className="preview-contact-item">
                 <MapPin size={16} className="highlight-violet" aria-hidden="true" />
@@ -360,7 +640,9 @@ export default function App() {
         </section>
       </main>
 
-      {/* 7. Footer with clearly identified placeholder URLs */}
+      {/* ==========================================================================
+          FOOTER (With Verified URLs & Identified Status)
+          ========================================================================== */}
       <footer className="site-footer">
         <div className="footer-container">
           <div className="footer-top">
@@ -373,33 +655,31 @@ export default function App() {
 
             <div className="footer-social-links" aria-label="Social and Professional Profiles">
               <a
-                href="https://github.com/your-username"
+                href="https://github.com/sanketamte96k"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-link"
-                title="GitHub Profile (Placeholder URL — replace with your username)"
+                title="Sanket Amte on GitHub"
               >
                 <GitHubIcon size={15} />
                 <span>GitHub</span>
-                <span className="social-link-tag">Placeholder</span>
               </a>
 
               <a
-                href="https://linkedin.com/in/your-username"
+                href="https://www.linkedin.com/in/sanket-amte-a55a61332/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-link"
-                title="LinkedIn Profile (Placeholder URL — replace with your username)"
+                title="Sanket Amte on LinkedIn"
               >
                 <LinkedInIcon size={15} />
                 <span>LinkedIn</span>
-                <span className="social-link-tag">Placeholder</span>
               </a>
 
               <a
-                href="mailto:sanketamte.dev@gmail.com"
+                href="mailto:sanketamte6584@gmail.com"
                 className="social-link"
-                title="Direct Email"
+                title="Send direct email"
               >
                 <Mail size={15} aria-hidden="true" />
                 <span>Email</span>
@@ -409,7 +689,7 @@ export default function App() {
 
           <div className="footer-bottom">
             <span>© {new Date().getFullYear()} Sanket Amte. All rights reserved.</span>
-            <span>Cinematic 3D Developer Portfolio • v1.0</span>
+            <span>Cinematic 3D Developer Portfolio</span>
           </div>
         </div>
       </footer>
