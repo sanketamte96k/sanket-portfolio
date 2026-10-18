@@ -11,11 +11,10 @@ import {
   Layers,
   GraduationCap,
   ExternalLink,
-  ShieldAlert,
-  Cpu,
   ShoppingBag,
-  Info,
-  Clock
+  TrendingUp,
+  Activity,
+  Building2
 } from 'lucide-react'
 import './App.css'
 
@@ -320,6 +319,7 @@ export default function App() {
 
         {/* ==========================================================================
             SELECTED ENGINEERING PROJECTS SHOWCASE (#work)
+            Exact 3 Projects: SignalForge, College Management System, Flipkart Clone
             ========================================================================== */}
         <section id="work" className="projects-section" aria-label="Featured Projects Showcase">
           <div className="section-header-block">
@@ -331,7 +331,7 @@ export default function App() {
               Featured Software &amp; <span className="section-title-gradient">System Architectures</span>
             </h2>
             <p className="section-subtitle">
-              Verified real-world implementations across cybersecurity forensics, system concurrency, and production e-commerce architectures.
+              Verified real-world software implementations across quantitative market research, full-stack college administration, and production e-commerce.
             </p>
           </div>
 
@@ -342,14 +342,14 @@ export default function App() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
           >
-            {/* PROJECT 1: ForensiMail */}
+            {/* PROJECT 1: SignalForge */}
             <motion.article
               className="project-card"
               variants={cardEntrance}
               custom={1}
-              aria-labelledby="project-forensimail-title"
+              aria-labelledby="project-signalforge-title"
             >
-              {/* CSS-Based Visual Preview */}
+              {/* Custom CSS Market Analytics Dashboard Preview */}
               <div className="card-visual-preview" aria-hidden="true">
                 <div className="preview-window-bar">
                   <div className="window-dots">
@@ -357,28 +357,34 @@ export default function App() {
                     <span className="window-dot dot-yellow" />
                     <span className="window-dot dot-green" />
                   </div>
-                  <span className="window-title">Forensic Inspector</span>
-                  <span className="window-badge">RFC-822 / MIME</span>
+                  <span className="window-title">Market Analytics Engine</span>
+                  <span className="window-badge">Historical Replay</span>
                 </div>
                 <div className="preview-body">
-                  <div className="forensics-threat-bar">
-                    <span className="threat-score-label">
-                      <ShieldAlert size={12} />
-                      AI Threat Score
+                  <div className="signalforge-timeframe-bar">
+                    <div className="timeframe-chips">
+                      <span className="tf-chip">1m</span>
+                      <span className="tf-chip">5m</span>
+                      <span className="tf-chip active">15m</span>
+                      <span className="tf-chip">1D</span>
+                    </div>
+                    <span className="market-regime-tag">
+                      <Activity size={11} />
+                      Regime: Trending
                     </span>
-                    <span className="threat-score-val">84 / 100 [CRITICAL]</span>
                   </div>
-                  <div className="forensics-auth-row">
-                    <span className="auth-badge">SPF: PASS</span>
-                    <span className="auth-badge">DKIM: PASS</span>
-                    <span className="auth-badge">DMARC: ALIGNED</span>
+                  <div className="signalforge-chart-mock">
+                    <div className="candle-col"><div className="candle-wick" style={{ height: '8px' }} /><div className="candle-body green" style={{ height: '22px' }} /><div className="candle-wick" style={{ height: '6px' }} /></div>
+                    <div className="candle-col"><div className="candle-wick" style={{ height: '6px' }} /><div className="candle-body green" style={{ height: '28px' }} /><div className="candle-wick" style={{ height: '8px' }} /></div>
+                    <div className="candle-col"><div className="candle-wick" style={{ height: '10px' }} /><div className="candle-body red" style={{ height: '18px' }} /><div className="candle-wick" style={{ height: '4px' }} /></div>
+                    <div className="candle-col"><div className="candle-wick" style={{ height: '5px' }} /><div className="candle-body green" style={{ height: '26px' }} /><div className="candle-wick" style={{ height: '9px' }} /></div>
+                    <div className="candle-col"><div className="candle-wick" style={{ height: '7px' }} /><div className="candle-body red" style={{ height: '14px' }} /><div className="candle-wick" style={{ height: '6px' }} /></div>
+                    <div className="candle-col"><div className="candle-wick" style={{ height: '4px' }} /><div className="candle-body green" style={{ height: '34px' }} /><div className="candle-wick" style={{ height: '7px' }} /></div>
+                    <div className="candle-col"><div className="candle-wick" style={{ height: '9px' }} /><div className="candle-body green" style={{ height: '38px' }} /><div className="candle-wick" style={{ height: '5px' }} /></div>
                   </div>
-                  <div className="route-trace-mini">
-                    <span>Origin: <span className="trace-node">185.220.101.5</span></span>
-                    <span>➔</span>
-                    <span>Relay Hop</span>
-                    <span>➔</span>
-                    <span className="trace-node">Target MX</span>
+                  <div className="signalforge-signal-bar">
+                    <span>Signal: BUY [Paper Test]</span>
+                    <span className="signal-meta">Slippage: 0.02% • Sim Only</span>
                   </div>
                 </div>
               </div>
@@ -386,47 +392,53 @@ export default function App() {
               {/* Card Content */}
               <div className="card-content-area">
                 <div className="card-category-badge">
-                  <ShieldAlert size={14} aria-hidden="true" />
-                  <span>Cybersecurity &amp; Threat Forensics</span>
+                  <TrendingUp size={14} aria-hidden="true" />
+                  <span>Market Research &amp; Simulation</span>
                 </div>
 
                 <div className="card-title-group">
-                  <h3 id="project-forensimail-title" className="card-project-title">ForensiMail</h3>
-                  <span className="card-project-tagline">AI-Powered Email Threat Detection &amp; GeoLocation Platform</span>
+                  <h3 id="project-signalforge-title" className="card-project-title">SignalForge</h3>
+                  <span className="card-project-tagline">Quantitative Market Research &amp; Paper-Trading System</span>
                 </div>
 
                 <p className="card-project-description">
-                  Investigates suspicious emails, brand impersonations, and malicious mail relays with evidence-backed attribution. Implements RFC/MIME email parsing, SPF/DKIM/DMARC authentication verification, sequential hop route tracing with IP geolocation, typosquatting domain detection, multi-factor NLP risk scoring (0–100), and automated forensic PDF report generation.
+                  A Python-based quantitative market research and strategy simulation platform. Engineered for multi-timeframe market data analysis and systematic backtesting using historical market-data replay. Incorporates technical-indicator strategy validation, market regime classification, and cost/slippage modeling. Operating purely in simulated paper-trading mode with strict manual decision guardrails, it does not execute live broker orders nor promise predictive financial returns.
                 </p>
 
-                <div className="card-tech-list" aria-label="Technologies used in ForensiMail">
-                  <span className="card-tech-pill">FastAPI</span>
+                <div className="card-tech-list" aria-label="Technologies used in SignalForge">
                   <span className="card-tech-pill">Python</span>
-                  <span className="card-tech-pill">React 18</span>
-                  <span className="card-tech-pill">TypeScript</span>
-                  <span className="card-tech-pill">TailwindCSS</span>
-                  <span className="card-tech-pill">Recharts</span>
-                  <span className="card-tech-pill">OAuth 2.0</span>
-                  <span className="card-tech-pill">jsPDF</span>
+                  <span className="card-tech-pill">Pandas</span>
+                  <span className="card-tech-pill">NumPy</span>
+                  <span className="card-tech-pill">pytest</span>
+                  <span className="card-tech-pill">Historical Data Replay</span>
+                  <span className="card-tech-pill">Technical Indicators</span>
+                  <span className="card-tech-pill">Multi-Timeframe Analysis</span>
+                  <span className="card-tech-pill">Paper Trading</span>
                 </div>
 
                 <div className="card-action-bar">
-                  <span className="action-status-badge">
-                    <Info size={13} aria-hidden="true" />
-                    <span>Local Platform • Repository Upload Pending</span>
-                  </span>
+                  <a
+                    href="https://github.com/sanketamte96k/SignalForge"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="action-btn-secondary"
+                    aria-label="View SignalForge repository on GitHub in a new tab"
+                  >
+                    <GitHubIcon size={14} />
+                    <span>View on GitHub</span>
+                  </a>
                 </div>
               </div>
             </motion.article>
 
-            {/* PROJECT 2: ThreadX */}
+            {/* PROJECT 2: College Management System */}
             <motion.article
               className="project-card"
               variants={cardEntrance}
               custom={2}
-              aria-labelledby="project-threadx-title"
+              aria-labelledby="project-cms-title"
             >
-              {/* CSS-Based Visual Preview */}
+              {/* Custom CSS College Administration Dashboard Preview */}
               <div className="card-visual-preview" aria-hidden="true">
                 <div className="preview-window-bar">
                   <div className="window-dots">
@@ -434,31 +446,32 @@ export default function App() {
                     <span className="window-dot dot-yellow" />
                     <span className="window-dot dot-green" />
                   </div>
-                  <span className="window-title">Thread Engine Monitor</span>
-                  <span className="window-badge">JVM Runtime</span>
+                  <span className="window-title">ERP Admin Portal</span>
+                  <span className="window-badge">Admission Workflow</span>
                 </div>
                 <div className="preview-body">
-                  <div className="thread-terminal-header">
-                    <span>Worker Thread Pool</span>
-                    <span>Max Capacity: 8</span>
+                  <div className="college-admin-metric-bar">
+                    <span className="admin-metric-item">
+                      <GraduationCap size={12} />
+                      Active Admissions: 48
+                    </span>
+                    <span className="admin-metric-item">Verification: In Progress</span>
                   </div>
-                  <div className="thread-list-mock">
-                    <div className="thread-row">
-                      <span className="thread-name">Worker-Thread-01</span>
-                      <span className="thread-state-pill state-running">RUNNING</span>
+                  <div className="college-workflow-table">
+                    <div className="workflow-row">
+                      <span className="workflow-zprn">ZPRN: 124BT10420</span>
+                      <span>B.Tech IT</span>
+                      <span className="workflow-status-badge status-verified">VERIFIED</span>
                     </div>
-                    <div className="thread-row">
-                      <span className="thread-name">Worker-Thread-02</span>
-                      <span className="thread-state-pill state-idle">IDLE</span>
-                    </div>
-                    <div className="thread-row">
-                      <span className="thread-name">Worker-Thread-03</span>
-                      <span className="thread-state-pill state-running">RUNNING</span>
+                    <div className="workflow-row">
+                      <span className="workflow-zprn">ZPRN: 124BT10421</span>
+                      <span>Fee: Ledger Paid</span>
+                      <span className="workflow-status-badge status-paid">PDF RECEIPT</span>
                     </div>
                   </div>
-                  <div className="thread-metrics-bar">
-                    <span>Active: 2 Tasks</span>
-                    <span>Queue: 0 Tasks</span>
+                  <div className="college-capacity-bar">
+                    <span>Intake Capacity: 92%</span>
+                    <span>Academic Year: 2026-27</span>
                   </div>
                 </div>
               </div>
@@ -466,44 +479,51 @@ export default function App() {
               {/* Card Content */}
               <div className="card-content-area">
                 <div className="card-category-badge">
-                  <Cpu size={14} aria-hidden="true" />
-                  <span>Systems &amp; Java Core</span>
+                  <Building2 size={14} aria-hidden="true" />
+                  <span>Institutional Administration &amp; ERP</span>
                 </div>
 
                 <div className="card-title-group">
-                  <h3 id="project-threadx-title" className="card-project-title">ThreadX</h3>
-                  <span className="card-project-tagline">Concurrency &amp; Multi-Threaded Execution Engine</span>
+                  <h3 id="project-cms-title" className="card-project-title">College Management System</h3>
+                  <span className="card-project-tagline">Institutional ERP &amp; Student Admission Platform</span>
                 </div>
 
                 <p className="card-project-description">
-                  Engineered around multi-threaded processing, task scheduling, and concurrency control. Implementation files and public repository link are currently awaiting upload from the developer.
+                  A centralized full-stack institutional administration platform developed to manage core college workflows. Streamlines student admission application processing, automated institutional ID (ZPRN) assignment, document verification workflows, academic department and intake capacity management, student fee ledgers with downloadable PDF receipts, and administrative oversight.
                 </p>
 
-                <div className="card-tech-list" aria-label="Technologies used in ThreadX">
-                  <span className="card-tech-pill">Java</span>
-                  <span className="card-tech-pill">Concurrency</span>
-                  <span className="card-tech-pill">Multithreading</span>
-                  <span className="card-tech-pill">OOP</span>
-                  <span className="card-tech-pill">Task Scheduling</span>
+                <div className="card-tech-list" aria-label="Technologies used in College Management System">
+                  <span className="card-tech-pill">Python (Flask)</span>
+                  <span className="card-tech-pill">MySQL</span>
+                  <span className="card-tech-pill">HTML5 / CSS3</span>
+                  <span className="card-tech-pill">JavaScript</span>
+                  <span className="card-tech-pill">ReportLab (PDF)</span>
+                  <span className="card-tech-pill">Docker</span>
                 </div>
 
                 <div className="card-action-bar">
-                  <span className="action-status-badge">
-                    <Clock size={13} aria-hidden="true" />
-                    <span>In Development • Details Pending Input</span>
-                  </span>
+                  <a
+                    href="https://github.com/sanketamte96k/College-Management-Administration-System"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="action-btn-secondary"
+                    aria-label="View College Management System repository on GitHub in a new tab"
+                  >
+                    <GitHubIcon size={14} />
+                    <span>View on GitHub</span>
+                  </a>
                 </div>
               </div>
             </motion.article>
 
-            {/* PROJECT 3: Flipkart Clone Pro */}
+            {/* PROJECT 3: Flipkart Clone */}
             <motion.article
               className="project-card"
               variants={cardEntrance}
               custom={3}
               aria-labelledby="project-flipkart-title"
             >
-              {/* CSS-Based Visual Preview */}
+              {/* Custom CSS E-Commerce Storefront Preview */}
               <div className="card-visual-preview" aria-hidden="true">
                 <div className="preview-window-bar">
                   <div className="window-dots">
@@ -543,15 +563,15 @@ export default function App() {
                 </div>
 
                 <div className="card-title-group">
-                  <h3 id="project-flipkart-title" className="card-project-title">Flipkart Clone Pro</h3>
+                  <h3 id="project-flipkart-title" className="card-project-title">Flipkart Clone</h3>
                   <span className="card-project-tagline">Full-Stack E-Commerce Platform &amp; Admin Management Portal</span>
                 </div>
 
                 <p className="card-project-description">
-                  A full-stack e-commerce web platform inspired by Flipkart. Implements secure Bcrypt user authentication, dynamic product catalog with real-time search &amp; multi-tier filtering, persistent shopping cart &amp; wishlist, multi-step checkout with mock payments, and a role-based administrative portal for complete order, customer, and inventory management.
+                  A full-stack e-commerce web platform inspired by Flipkart with complete customer shopping workflows and an administrative portal. Implements secure Bcrypt password hashing and session management, dynamic multi-category product catalog with real-time search &amp; multi-tier filtering, persistent shopping cart &amp; wishlist, multi-step checkout simulation, and a role-based admin portal for inventory, order status updates, and customer records.
                 </p>
 
-                <div className="card-tech-list" aria-label="Technologies used in Flipkart Clone Pro">
+                <div className="card-tech-list" aria-label="Technologies used in Flipkart Clone">
                   <span className="card-tech-pill">Python (Flask)</span>
                   <span className="card-tech-pill">SQLAlchemy</span>
                   <span className="card-tech-pill">MySQL</span>
@@ -609,7 +629,7 @@ export default function App() {
         </section>
 
         {/* ==========================================================================
-            CONTACT SECTION (Preserved & Enhanced with Verified Contact Info)
+            CONTACT SECTION (Preserved)
             ========================================================================== */}
         <section id="contact" className="preview-section" aria-label="Contact Section Preview">
           <div className="preview-section-card">
@@ -641,7 +661,7 @@ export default function App() {
       </main>
 
       {/* ==========================================================================
-          FOOTER (With Verified URLs & Identified Status)
+          FOOTER (Preserved With Verified URLs)
           ========================================================================== */}
       <footer className="site-footer">
         <div className="footer-container">

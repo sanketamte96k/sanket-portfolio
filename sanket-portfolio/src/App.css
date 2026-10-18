@@ -72,7 +72,7 @@
   width: 100%;
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  background: rgba(6, 7, 10, 0.78);
+  background: rgba(6, 7, 10, 0.82);
   border-bottom: 1px solid var(--border-subtle);
   transition: border-color 0.3s ease;
 }
@@ -762,7 +762,7 @@
 .section-subtitle {
   font-size: 16px;
   color: var(--text-secondary);
-  max-width: 640px;
+  max-width: 660px;
   line-height: 1.6;
 }
 
@@ -780,7 +780,7 @@
   display: flex;
   flex-direction: column;
   border-radius: 24px;
-  background: rgba(13, 16, 26, 0.75);
+  background: rgba(13, 16, 26, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.09);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -798,10 +798,10 @@
     0 0 35px -8px rgba(139, 92, 246, 0.22);
 }
 
-/* CSS-Based Visual Previews */
+/* CSS-Based Visual Previews Common Shell */
 .card-visual-preview {
   position: relative;
-  height: 200px;
+  height: 204px;
   width: 100%;
   background: linear-gradient(180deg, #0e111d 0%, #080a12 100%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -815,7 +815,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 14px;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.45);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   font-family: var(--font-mono);
   font-size: 11px;
@@ -845,7 +845,7 @@
 
 .window-badge {
   font-size: 10px;
-  padding: 2px 6px;
+  padding: 2px 7px;
   border-radius: 4px;
   background: rgba(139, 92, 246, 0.15);
   color: var(--accent-violet-light);
@@ -855,131 +855,171 @@
 .preview-body {
   position: relative;
   flex: 1;
-  padding: 14px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   overflow: hidden;
 }
 
-/* 1. ForensiMail Visual Preview Elements */
-.forensics-threat-bar {
+/* ==========================================================================
+   1. SignalForge Custom CSS Market Analytics Dashboard Preview
+   ========================================================================== */
+.signalforge-timeframe-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 12px;
-  border-radius: 8px;
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-}
-
-.threat-score-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  color: #f87171;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.threat-score-val {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 800;
-  color: #ffffff;
-  padding: 2px 6px;
-  border-radius: 4px;
-  background: rgba(239, 68, 68, 0.3);
-}
-
-.forensics-auth-row {
-  display: flex;
-  gap: 6px;
-}
-
-.auth-badge {
-  flex: 1;
-  text-align: center;
-  padding: 4px 6px;
-  border-radius: 6px;
   font-family: var(--font-mono);
   font-size: 10px;
-  background: rgba(16, 185, 129, 0.1);
-  color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.25);
 }
 
-.route-trace-mini {
+.timeframe-chips {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: var(--font-mono);
-  font-size: 9px;
+  gap: 4px;
+}
+
+.tf-chip {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
   color: var(--text-muted);
-  padding: 4px 8px;
+}
+
+.tf-chip.active {
+  background: rgba(59, 130, 246, 0.25);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.market-regime-tag {
+  color: #34d399;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Candlestick Mockup */
+.signalforge-chart-mock {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 58px;
+  padding: 6px 10px;
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.trace-node {
-  color: var(--accent-blue-light);
+.candle-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
 }
 
-/* 2. ThreadX Visual Preview Elements */
-.thread-terminal-header {
+.candle-wick {
+  width: 1px;
+  background: #64748b;
+}
+
+.candle-body {
+  width: 7px;
+  border-radius: 1px;
+}
+
+.candle-body.green {
+  background: #10b981;
+}
+
+.candle-body.red {
+  background: #ef4444;
+}
+
+.signalforge-signal-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.25);
   font-family: var(--font-mono);
   font-size: 10px;
+  color: #34d399;
+}
+
+.signal-meta {
   color: var(--text-muted);
+  font-size: 9px;
 }
 
-.thread-list-mock {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.thread-row {
+/* ==========================================================================
+   2. College Management System Custom CSS Administration Dashboard Preview
+   ========================================================================== */
+.college-admin-metric-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 6px 10px;
   border-radius: 6px;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.admin-metric-item {
+  color: #93c5fd;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.college-workflow-table {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.workflow-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 8px;
+  border-radius: 6px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
 }
 
-.thread-name {
+.workflow-zprn {
   color: #ffffff;
-  font-weight: 500;
+  font-weight: 600;
 }
 
-.thread-state-pill {
+.workflow-status-badge {
   font-size: 9px;
   padding: 2px 6px;
   border-radius: 4px;
 }
 
-.state-running {
+.status-verified {
   background: rgba(16, 185, 129, 0.15);
   color: #34d399;
   border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
-.state-idle {
-  background: rgba(148, 163, 184, 0.15);
-  color: #cbd5e1;
-  border: 1px solid rgba(148, 163, 184, 0.3);
+.status-paid {
+  background: rgba(139, 92, 246, 0.15);
+  color: #c4b5fd;
+  border: 1px solid rgba(139, 92, 246, 0.3);
 }
 
-.thread-metrics-bar {
+.college-capacity-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -988,7 +1028,9 @@
   color: var(--text-muted);
 }
 
-/* 3. Flipkart Clone Visual Preview Elements */
+/* ==========================================================================
+   3. Flipkart Clone Custom CSS E-Commerce Storefront Preview
+   ========================================================================== */
 .ecommerce-search-mock {
   display: flex;
   align-items: center;
@@ -1179,24 +1221,6 @@
   background: rgba(255, 255, 255, 0.09);
   border-color: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
-}
-
-/* Informational Badge when destination/repo is pending upload */
-.action-status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px dashed rgba(255, 255, 255, 0.15);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.action-status-badge svg {
-  color: var(--accent-violet-light);
 }
 
 /* ==========================================================================
