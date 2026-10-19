@@ -14,9 +14,57 @@ import {
   ShoppingBag,
   TrendingUp,
   Activity,
-  Building2
+  Building2,
+  Copy,
+  Check,
+  Cpu
 } from 'lucide-react'
+import {
+  JavaIcon,
+  PythonIcon,
+  FlaskIcon,
+  MySQLIcon,
+  JavaScriptIcon,
+  HTML5Icon,
+  CSS3Icon,
+  SQLAlchemyIcon,
+  PandasIcon,
+  GitIcon,
+  GitHubTechIcon,
+  SpringBootIcon,
+  ReactIcon,
+  TypeScriptIcon,
+  PostgreSQLIcon,
+  DockerIcon,
+} from './TechIcons'
 import './App.css'
+
+// Technology lists for animated marquee
+const techRow1 = [
+  { name: 'Java', category: 'Core Language', icon: <JavaIcon /> },
+  { name: 'Python', category: 'Backend & Data', icon: <PythonIcon /> },
+  { name: 'Spring Boot', category: 'Enterprise Framework', icon: <SpringBootIcon /> },
+  { name: 'Flask', category: 'Web Framework', icon: <FlaskIcon /> },
+  { name: 'PostgreSQL', category: 'Relational DB', icon: <PostgreSQLIcon /> },
+  { name: 'MySQL', category: 'Relational DB', icon: <MySQLIcon /> },
+  { name: 'Docker', category: 'Containerization', icon: <DockerIcon /> },
+  { name: 'Git', category: 'Version Control', icon: <GitIcon /> },
+]
+
+const techRow2 = [
+  { name: 'React', category: 'UI Architecture', icon: <ReactIcon /> },
+  { name: 'TypeScript', category: 'Typed JavaScript', icon: <TypeScriptIcon /> },
+  { name: 'JavaScript', category: 'Frontend Logic', icon: <JavaScriptIcon /> },
+  { name: 'HTML5', category: 'Semantic Web', icon: <HTML5Icon /> },
+  { name: 'CSS3', category: 'Modern Styling', icon: <CSS3Icon /> },
+  { name: 'SQLAlchemy', category: 'ORM & Modeling', icon: <SQLAlchemyIcon /> },
+  { name: 'Pandas', category: 'Data Analysis', icon: <PandasIcon /> },
+  { name: 'GitHub', category: 'CI/CD & Git', icon: <GitHubTechIcon /> },
+]
+
+// Duplicate arrays to create continuous seamless marquee looping
+const row1Marquee = [...techRow1, ...techRow1]
+const row2Marquee = [...techRow2, ...techRow2]
 
 // Inline Brand Icons (Lucide purposefully excludes third-party commercial brand marks)
 function GitHubIcon({ size = 16 }: { size?: number }) {
@@ -61,7 +109,18 @@ export default function App() {
   const shouldReduceMotion = useReducedMotion()
   const [imageError, setImageError] = useState(false)
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const [copiedEmail, setCopiedEmail] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText('sanketamte6584@gmail.com')
+      setCopiedEmail(true)
+      setTimeout(() => setCopiedEmail(false), 2400)
+    } catch {
+      setCopiedEmail(false)
+    }
+  }
 
   // Subtle 3D portrait perspective tilt
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
@@ -147,6 +206,7 @@ export default function App() {
 
           {/* Nav & Contact Links */}
           <div className="nav-links">
+            <a href="#technologies" className="nav-link">Skills</a>
             <a href="#work" className="nav-link">Work</a>
             <a href="#about" className="nav-link">About</a>
             <a href="#contact" className="nav-cta-btn">
@@ -318,6 +378,57 @@ export default function App() {
         </section>
 
         {/* ==========================================================================
+            TECHNOLOGIES I WORK WITH SECTION (#technologies)
+            Premium dual-row infinite marquee
+            ========================================================================== */}
+        <section id="technologies" className="technologies-section" aria-label="Technologies I Work With">
+          <div className="section-header-block text-center">
+            <div className="section-eyebrow justify-center">
+              <Cpu size={14} aria-hidden="true" />
+              <span>Core Stack &amp; Tooling</span>
+            </div>
+            <h2 className="section-title">
+              Technologies I <span className="section-title-gradient">Work With</span>
+            </h2>
+            <p className="section-subtitle centered-subtitle">
+              Tools I use to build, develop, and ship projects.
+            </p>
+          </div>
+
+          <div className="marquee-container" aria-label="Animated list of technologies">
+            {/* Row 1: Leftward moving track */}
+            <div className="marquee-row" aria-label="Technology stack row 1">
+              <div className="marquee-track track-left">
+                {row1Marquee.map((tech, idx) => (
+                  <div key={`r1-${idx}`} className="tech-marquee-card" tabIndex={0} role="group" aria-label={tech.name}>
+                    <div className="tech-marquee-icon">{tech.icon}</div>
+                    <div className="tech-marquee-info">
+                      <span className="tech-marquee-name">{tech.name}</span>
+                      <span className="tech-marquee-role">{tech.category}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Row 2: Rightward moving track */}
+            <div className="marquee-row" aria-label="Technology stack row 2">
+              <div className="marquee-track track-right">
+                {row2Marquee.map((tech, idx) => (
+                  <div key={`r2-${idx}`} className="tech-marquee-card" tabIndex={0} role="group" aria-label={tech.name}>
+                    <div className="tech-marquee-icon">{tech.icon}</div>
+                    <div className="tech-marquee-info">
+                      <span className="tech-marquee-name">{tech.name}</span>
+                      <span className="tech-marquee-role">{tech.category}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ==========================================================================
             SELECTED ENGINEERING PROJECTS SHOWCASE (#work)
             Exact 3 Projects: SignalForge, College Management System, Flipkart Clone
             ========================================================================== */}
@@ -340,7 +451,7 @@ export default function App() {
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={{ once: true, amount: 0.02 }}
           >
             {/* PROJECT 1: SignalForge */}
             <motion.article
@@ -610,50 +721,177 @@ export default function App() {
         </section>
 
         {/* ==========================================================================
-            ABOUT SECTION (Preserved)
+            ABOUT SECTION (Editorial Layout)
             ========================================================================== */}
-        <section id="about" className="preview-section" aria-label="About Section Preview">
-          <div className="preview-section-card">
-            <span className="preview-section-tag">
+        <section id="about" className="about-section" aria-label="About Sanket Amte">
+          <div className="section-header-block">
+            <div className="section-eyebrow">
               <Code2 size={14} aria-hidden="true" />
-              <span>Academic &amp; Engineering Profile • About Me</span>
-            </span>
-            <h2 className="preview-section-title">Background &amp; Academic Focus</h2>
-            <p className="preview-section-desc">
-              Pursuing a B.Tech in Information Technology at Zeal College of Engineering and Research,
-              Pune (CGPA: 8.86). Specialized in core Java, OOP, data structures, and database architectures,
-              with hands-on project experience in full-stack web platforms, Python/Flask backends, and modern
-              reactive user interfaces.
+              <span>Academic &amp; Engineering Profile</span>
+            </div>
+            <h2 className="section-title">
+              Engineering Background &amp; <span className="section-title-gradient">Core Competencies</span>
+            </h2>
+            <p className="section-subtitle">
+              Combining strong computer science fundamentals with hands-on full-stack development across Java enterprise backends, Python architectures, and reactive user interfaces.
             </p>
+          </div>
+
+          <div className="about-grid">
+            {/* Left Card: Verified Academic Profile */}
+            <div className="about-card about-card-primary">
+              <div className="about-card-badge">
+                <GraduationCap size={15} aria-hidden="true" />
+                <span>Formal Education</span>
+              </div>
+              <h3 className="about-card-title">B.Tech in Information Technology</h3>
+              <p className="about-institution">
+                Zeal College of Engineering and Research, Pune
+              </p>
+              <div className="about-metric-pill">
+                <span className="metric-label">Cumulative GPA</span>
+                <span className="metric-value">8.86 / 10.0</span>
+              </div>
+              <p className="about-card-desc">
+                Specialized in Core Java, Object-Oriented Programming, Data Structures &amp; Algorithms, Database Management Systems, and Web Architectures. Focused on building clean, high-performance software systems with verifiable reliability.
+              </p>
+            </div>
+
+            {/* Right Card: Technical Competency Matrix */}
+            <div className="about-card about-card-secondary">
+              <div className="about-card-badge">
+                <Terminal size={15} aria-hidden="true" />
+                <span>Technical Stack</span>
+              </div>
+              <h3 className="about-card-title">Verified Engineering Competencies</h3>
+              
+              <div className="competency-group">
+                <span className="competency-group-title">Enterprise Backend &amp; Architecture</span>
+                <div className="competency-pills">
+                  <span className="competency-pill">Java 17+</span>
+                  <span className="competency-pill">Spring Boot</span>
+                  <span className="competency-pill">PostgreSQL</span>
+                  <span className="competency-pill">MySQL</span>
+                  <span className="competency-pill">RESTful APIs</span>
+                </div>
+              </div>
+
+              <div className="competency-group">
+                <span className="competency-group-title">Frontend &amp; Reactive UI</span>
+                <div className="competency-pills">
+                  <span className="competency-pill">React</span>
+                  <span className="competency-pill">TypeScript</span>
+                  <span className="competency-pill">HTML5 / CSS3</span>
+                  <span className="competency-pill">Vanilla JS</span>
+                </div>
+              </div>
+
+              <div className="competency-group">
+                <span className="competency-group-title">Tooling, DevOps &amp; Testing</span>
+                <div className="competency-pills">
+                  <span className="competency-pill">Docker</span>
+                  <span className="competency-pill">Git / GitHub</span>
+                  <span className="competency-pill">ReportLab</span>
+                  <span className="competency-pill">pytest</span>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
         {/* ==========================================================================
-            CONTACT SECTION (Preserved)
+            CONTACT SECTION (Luxury Interaction Hub)
             ========================================================================== */}
-        <section id="contact" className="preview-section" aria-label="Contact Section Preview">
-          <div className="preview-section-card">
-            <span className="preview-section-tag">
-              <Mail size={14} aria-hidden="true" />
-              <span>Get In Touch • Open for Opportunities</span>
-            </span>
-            <h2 className="preview-section-title">Let's Connect</h2>
-            <p className="preview-section-desc">
-              Actively seeking full-stack developer roles and high-impact software engineering internships.
-              Feel free to reach out directly via email or connect on LinkedIn and GitHub.
-            </p>
-            <div className="preview-contact-grid">
-              <a
-                href="mailto:sanketamte6584@gmail.com"
-                className="preview-contact-item"
-                title="Send an email to Sanket Amte"
-              >
-                <Mail size={16} className="highlight-violet" aria-hidden="true" />
-                <span>sanketamte6584@gmail.com</span>
-              </a>
-              <div className="preview-contact-item">
-                <MapPin size={16} className="highlight-violet" aria-hidden="true" />
-                <span>Pune, Maharashtra, India</span>
+        <section id="contact" className="contact-section" aria-label="Contact Section">
+          <div className="contact-card">
+            <div className="contact-header">
+              <div className="section-eyebrow">
+                <Mail size={14} aria-hidden="true" />
+                <span>Get In Touch • Open for Opportunities</span>
+              </div>
+              <h2 className="section-title">
+                Let's Build <span className="section-title-gradient">Something Exceptional</span>
+              </h2>
+              <p className="section-subtitle">
+                Actively seeking full-stack developer roles and high-impact software engineering internships. Feel free to reach out directly via email or connect on LinkedIn and GitHub.
+              </p>
+            </div>
+
+            <div className="contact-body">
+              <div className="contact-primary-row">
+                <div className="contact-email-box">
+                  <span className="contact-label">Direct Email</span>
+                  <a
+                    href="mailto:sanketamte6584@gmail.com"
+                    className="contact-email-link"
+                    title="Send an email to Sanket Amte"
+                  >
+                    <Mail size={18} className="highlight-violet" aria-hidden="true" />
+                    <span>sanketamte6584@gmail.com</span>
+                  </a>
+                </div>
+
+                <div className="contact-actions-row">
+                  <button
+                    type="button"
+                    onClick={handleCopyEmail}
+                    className={`contact-copy-btn ${copiedEmail ? 'copied' : ''}`}
+                    aria-label="Copy email address to clipboard"
+                  >
+                    {copiedEmail ? (
+                      <>
+                        <Check size={15} aria-hidden="true" />
+                        <span>Copied to Clipboard!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={15} aria-hidden="true" />
+                        <span>Copy Email</span>
+                      </>
+                    )}
+                  </button>
+                  <span className="sr-only" aria-live="polite">
+                    {copiedEmail ? 'Email address copied to clipboard' : ''}
+                  </span>
+
+                  <a
+                    href="mailto:sanketamte6584@gmail.com"
+                    className="contact-send-btn"
+                    title="Send direct email"
+                  >
+                    <span>Send Message</span>
+                    <ArrowUpRight size={15} aria-hidden="true" />
+                  </a>
+                </div>
+              </div>
+
+              <div className="contact-meta-row">
+                <div className="contact-meta-item">
+                  <MapPin size={15} className="highlight-violet" aria-hidden="true" />
+                  <span>Pune, Maharashtra, India</span>
+                </div>
+                <div className="contact-social-chips">
+                  <a
+                    href="https://github.com/sanketamte96k"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="contact-social-chip"
+                    aria-label="View Sanket Amte on GitHub in a new tab"
+                  >
+                    <GitHubIcon size={14} />
+                    <span>GitHub</span>
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/sanket-amte-a55a61332/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="contact-social-chip"
+                    aria-label="View Sanket Amte on LinkedIn in a new tab"
+                  >
+                    <LinkedInIcon size={14} />
+                    <span>LinkedIn</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
