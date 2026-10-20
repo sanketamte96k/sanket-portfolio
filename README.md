@@ -1,17 +1,26 @@
-# Sanket Amte | Developer Portfolio
+# Sanket Amte | Java Full Stack Developer
 
 <p align="center">
-  <strong>A cinematic digital portfolio showcasing my journey as a Java Full Stack Developer.</strong>
-  <br />
-  Built with modern web technologies, interactive animations, and a premium dark aesthetic.
+  <a href="https://sanket-portfolio-lemon.vercel.app">
+    <img src="https://img.shields.io/badge/🌐_LIVE_PORTFOLIO-Visit_Now-7C3AED?style=for-the-badge" alt="Visit Live Portfolio" />
+  </a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/sanketamte96k">GitHub</a> •
-  <a href="mailto:sanketamte6584@gmail.com">Email</a>
+  <strong>Building modern web experiences with clean code, thoughtful design, and continuous learning.</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/sanketamte96k">GitHub</a> ·
+  <a href="https://sanket-portfolio-lemon.vercel.app">Portfolio</a> ·
+  <a href="mailto:sanketamte6584@gmail.com">Contact Me</a>
 </p>
 
 ---
+
+## 👨‍💻 About Me
+
+I'm **Sanket Amte**, a B.Tech Information Technology student at Zeal College of Engineering and Research, Pune. I'm focused on Java, full-stack development, problem-solving, and building practical software projects.
 
 ## ⚡ Tech Stack
 
@@ -20,51 +29,38 @@
 ## 🚀 Featured Projects
 
 ### 01 · SignalForge
-**Trading & Market Analysis**
+Trading-related software project.
 
-A software project focused on trading-related analysis.
-
-[↗ Explore Repository](https://github.com/sanketamte96k/SignalForge)
-
----
+[↗ View on GitHub](https://github.com/sanketamte96k/SignalForge)
 
 ### 02 · College Management System
-**College Administration & Management**
+College administration and management application.
 
-An application designed around college administration and management workflows.
-
-[↗ Explore Repository](https://github.com/sanketamte96k/College-Management-Administration-System)
-
----
+[↗ View on GitHub](https://github.com/sanketamte96k/College-Management-Administration-System)
 
 ### 03 · Flipkart Clone
-**E-Commerce Web Application**
+E-commerce clone with a deployed demonstration.
 
-An e-commerce clone project with a deployed live demonstration.
-
-[↗ GitHub Repository](https://github.com/sanketamte96k/Flipkart-clone) · [↗ Live Demo](https://flipkart-clone-production-0c44.up.railway.app)
-
----
+[↗ Source Code](https://github.com/sanketamte96k/Flipkart-clone) · [↗ Live Demo](https://flipkart-clone-production-0c44.up.railway.app)
 
 ## ✨ Portfolio Highlights
 
-- Cinematic intro animation
+- Cinematic entrance animation
 - Interactive portrait and visual effects
 - Animated technology showcase
-- Development roadmap and featured projects
 - Responsive design and accessible interactions
+- Featured projects and direct contact links
 
-## 👨‍💻 About Me
+## 📬 Let's Connect
 
-I'm **Sanket Amte**, a B.Tech Information Technology student at Zeal College of Engineering and Research, Pune, focused on Java, full-stack development, and building practical software projects.
+Interested in discussing projects, software development, or career opportunities?
 
-## 📬 Connect With Me
-
-- **GitHub:** [sanketamte96k](https://github.com/sanketamte96k)
+- **Portfolio:** [sanket-portfolio-lemon.vercel.app](https://sanket-portfolio-lemon.vercel.app)
+- **GitHub:** [@sanketamte96k](https://github.com/sanketamte96k)
 - **Email:** [sanketamte6584@gmail.com](mailto:sanketamte6584@gmail.com)
 
 ---
 
 <p align="center">
-  <strong>Building ideas into experiences, one line of code at a time.</strong>
+  <strong>Turning ideas into software, one project at a time.</strong>
 </p>
