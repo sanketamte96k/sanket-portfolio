@@ -19,7 +19,9 @@ import {
   Compass,
   CheckCircle2,
   Check,
-  ArrowRight
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react'
 import {
   JavaIcon,
@@ -412,6 +414,29 @@ export default function App() {
   const [copiedEmail, setCopiedEmail] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
 
+  // Mobile Showcase Carousel State
+  const [activeShowcaseIndex, setActiveShowcaseIndex] = useState(0)
+  const showcaseTrackRef = useRef<HTMLDivElement>(null)
+
+  const handleShowcaseScroll = () => {
+    if (!showcaseTrackRef.current) return
+    const el = showcaseTrackRef.current
+    const scrollLeft = el.scrollLeft
+    const cardWidth = el.firstElementChild ? (el.firstElementChild as HTMLElement).offsetWidth : 1
+    const index = Math.round(scrollLeft / (cardWidth + 20))
+    setActiveShowcaseIndex(Math.min(2, Math.max(0, index)))
+  }
+
+  const scrollToShowcaseCard = (index: number) => {
+    if (!showcaseTrackRef.current) return
+    const el = showcaseTrackRef.current
+    const targetCard = el.children[index] as HTMLElement | undefined
+    if (targetCard) {
+      targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+      setActiveShowcaseIndex(index)
+    }
+  }
+
   // Cinematic Entrance Intro State
   const [showIntro, setShowIntro] = useState(() => !shouldReduceMotion)
   const [heroReady, setHeroReady] = useState(() => Boolean(shouldReduceMotion))
@@ -527,10 +552,11 @@ export default function App() {
   }
 
   const cardEntrance: Variants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 28 },
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 28, scale: shouldReduceMotion ? 1 : 0.98 },
     visible: (custom: number = 0) => ({
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
         duration: shouldReduceMotion ? 0.05 : 0.7,
         delay: shouldReduceMotion ? 0 : custom * 0.15,
@@ -853,8 +879,9 @@ export default function App() {
         </section>
 
         {/* ==========================================================================
-            SELECTED ENGINEERING PROJECTS SHOWCASE (#work)
+            FEATURED ENGINEERING PROJECTS SHOWCASE (#work)
             Exact 3 Projects: SignalForge, College Management System, Flipkart Clone
+            Premium Cinematic 3-Column Horizontal Row on Desktop
             ========================================================================== */}
         <section id="work" className="projects-section" aria-label="Featured Projects Showcase">
           {/* Studio Editorial Section Header */}
@@ -878,38 +905,40 @@ export default function App() {
           </div>
 
           <motion.div
+            ref={showcaseTrackRef}
             className="editorial-showcase-container"
+            onScroll={handleShowcaseScroll}
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.01, margin: "100px 0px" }}
           >
             {/* ================================================================
-                PROJECT 01 (FLAGSHIP): SIGNALFORGE
-                Panoramic Software Preview Centerpiece + Compact Narrative Dossier
+                PROJECT 01: SIGNALFORGE
+                Quantitative Research & Backtesting Engine
                 ================================================================ */}
             <motion.article
-              className="flagship-showcase-article"
+              className="showcase-card-article"
               variants={cardEntrance}
               custom={1}
               aria-labelledby="project-signalforge-title"
             >
-              <Project3DCard className="flagship-showcase-card" glowColor="violet">
-                {/* 1. Flagship Meta Bar */}
-                <div className="flagship-header-bar">
-                  <div className="flagship-index-group">
+              <Project3DCard className="showcase-project-card" glowColor="violet">
+                {/* 1. Header Bar */}
+                <div className="showcase-card-header">
+                  <div className="showcase-index-group">
                     <span className="editorial-num">01</span>
                     <span className="editorial-divider" aria-hidden="true">/</span>
-                    <span className="flagship-category">QUANTITATIVE RESEARCH &amp; BACKTESTING ENGINE</span>
+                    <span className="showcase-category">QUANTITATIVE RESEARCH</span>
                   </div>
-                  <div className="flagship-header-actions">
-                    <span className="flagship-mode-pill">Paper Simulation Mode</span>
+                  <div className="showcase-header-actions">
+                    <span className="showcase-mode-pill">Paper Sim</span>
                     <a
                       href="https://github.com/sanketamte96k/SignalForge"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="editorial-icon-link"
-                      aria-label="View SignalForge code on GitHub"
+                      className="showcase-icon-link"
+                      aria-label="View SignalForge code on GitHub in a new tab"
                     >
                       <GitHubIcon size={14} />
                       <ArrowUpRight size={13} aria-hidden="true" />
@@ -917,125 +946,122 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* 2. Visual Centerpiece: Panoramic Trading Terminal Viewport */}
-                <div className="panoramic-preview-viewport" aria-hidden="true">
+                {/* 2. Visual Preview: Quantitative Trading Dashboard Stage */}
+                <div className="showcase-preview-viewport stage-trading" aria-hidden="true">
                   <div className="terminal-titlebar">
                     <div className="terminal-dots">
                       <span className="dot dot-close" />
                       <span className="dot dot-min" />
                       <span className="dot dot-max" />
                     </div>
-                    <span className="terminal-path">signalforge // multi_timeframe_replay.py</span>
+                    <span className="terminal-path">signalforge // replay_engine.py</span>
                     <div className="terminal-quote-strip">
                       <span className="ticker-code">NIFTY50</span>
-                      <span className="ticker-price">24,682.40</span>
                       <span className="ticker-change">+1.34%</span>
                     </div>
                   </div>
 
-                  <div className="panoramic-chart-stage">
+                  <div className="chart-preview-stage">
                     {/* Price Axes Guide */}
                     <div className="chart-y-axis">
-                      <span>24,800.00</span>
-                      <span>24,650.00</span>
-                      <span>24,500.00</span>
-                      <span>24,350.00</span>
+                      <span>24,800</span>
+                      <span>24,650</span>
+                      <span>24,500</span>
                     </div>
 
                     {/* SVG Spline Mesh */}
-                    <svg className="panoramic-svg-chart" viewBox="0 0 900 170" preserveAspectRatio="none">
+                    <svg className="chart-svg-mesh" viewBox="0 0 400 120" preserveAspectRatio="none">
                       <defs>
-                        <linearGradient id="panoramicChartGradient" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#10b981" stopOpacity="0.22" />
-                          <stop offset="45%" stopColor="#8b5cf6" stopOpacity="0.08" />
+                        <linearGradient id="signalforgeGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#10b981" stopOpacity="0.25" />
+                          <stop offset="55%" stopColor="#8b5cf6" stopOpacity="0.08" />
                           <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.0" />
                         </linearGradient>
-                        <linearGradient id="panoramicSplineStroke" x1="0" y1="0" x2="1" y2="0">
+                        <linearGradient id="signalforgeSplineStroke" x1="0" y1="0" x2="1" y2="0">
                           <stop offset="0%" stopColor="#3b82f6" />
-                          <stop offset="35%" stopColor="#8b5cf6" />
-                          <stop offset="70%" stopColor="#10b981" />
+                          <stop offset="40%" stopColor="#8b5cf6" />
+                          <stop offset="80%" stopColor="#10b981" />
                           <stop offset="100%" stopColor="#34d399" />
                         </linearGradient>
                       </defs>
 
                       {/* Reference Gridlines */}
-                      <line x1="0" y1="35" x2="900" y2="35" stroke="rgba(255,255,255,0.04)" strokeDasharray="4 4" />
-                      <line x1="0" y1="80" x2="900" y2="80" stroke="rgba(255,255,255,0.04)" strokeDasharray="4 4" />
-                      <line x1="0" y1="125" x2="900" y2="125" stroke="rgba(255,255,255,0.04)" strokeDasharray="4 4" />
+                      <line x1="0" y1="25" x2="400" y2="25" stroke="rgba(255,255,255,0.05)" strokeDasharray="3 3" />
+                      <line x1="0" y1="60" x2="400" y2="60" stroke="rgba(255,255,255,0.05)" strokeDasharray="3 3" />
+                      <line x1="0" y1="95" x2="400" y2="95" stroke="rgba(255,255,255,0.05)" strokeDasharray="3 3" />
 
                       {/* Area Fill */}
                       <path
-                        d="M 0 140 Q 120 125, 240 110 T 480 82 T 700 48 T 900 25 L 900 170 L 0 170 Z"
-                        fill="url(#panoramicChartGradient)"
+                        d="M 0 100 Q 55 90, 110 75 T 210 55 T 310 32 T 400 16 L 400 120 L 0 120 Z"
+                        fill="url(#signalforgeGradient)"
                       />
                       {/* Animated Spline Path */}
                       <path
-                        d="M 0 140 Q 120 125, 240 110 T 480 82 T 700 48 T 900 25"
+                        d="M 0 100 Q 55 90, 110 75 T 210 55 T 310 32 T 400 16"
                         fill="none"
-                        stroke="url(#panoramicSplineStroke)"
-                        strokeWidth="2.4"
+                        stroke="url(#signalforgeSplineStroke)"
+                        strokeWidth="2.2"
                         className="panoramic-animated-spline"
                       />
                     </svg>
 
-                    {/* Realistic Candlestick Price Action */}
-                    <div className="panoramic-candles-row">
-                      <div className="candle-col"><div className="candle-wick" style={{ height: '7px' }} /><div className="candle-body green" style={{ height: '18px' }} /><div className="candle-wick" style={{ height: '5px' }} /></div>
-                      <div className="candle-col"><div className="candle-wick" style={{ height: '5px' }} /><div className="candle-body green" style={{ height: '24px' }} /><div className="candle-wick" style={{ height: '6px' }} /></div>
-                      <div className="candle-col"><div className="candle-wick" style={{ height: '8px' }} /><div className="candle-body red" style={{ height: '14px' }} /><div className="candle-wick" style={{ height: '4px' }} /></div>
-                      <div className="candle-col"><div className="candle-wick" style={{ height: '4px' }} /><div className="candle-body green" style={{ height: '22px' }} /><div className="candle-wick" style={{ height: '7px' }} /></div>
-                      <div className="candle-col"><div className="candle-wick" style={{ height: '6px' }} /><div className="candle-body red" style={{ height: '11px' }} /><div className="candle-wick" style={{ height: '5px' }} /></div>
-                      <div className="candle-col"><div className="candle-wick" style={{ height: '5px' }} /><div className="candle-body green" style={{ height: '28px' }} /><div className="candle-wick" style={{ height: '6px' }} /></div>
-                      <div className="candle-col"><div className="candle-wick" style={{ height: '4px' }} /><div className="candle-body green" style={{ height: '32px' }} /><div className="candle-wick" style={{ height: '4px' }} /></div>
-                      <div className="candle-col"><div className="candle-wick" style={{ height: '7px' }} /><div className="candle-body red" style={{ height: '10px' }} /><div className="candle-wick" style={{ height: '4px' }} /></div>
-                      <div className="candle-col"><div className="candle-wick" style={{ height: '4px' }} /><div className="candle-body green" style={{ height: '36px' }} /><div className="candle-wick" style={{ height: '5px' }} /></div>
-                      <div className="candle-col"><div className="candle-wick" style={{ height: '5px' }} /><div className="candle-body green" style={{ height: '40px' }} /><div className="candle-wick" style={{ height: '4px' }} /></div>
+                    {/* Candlestick Row */}
+                    <div className="chart-candles-row">
+                      <div className="candle-col"><div className="candle-wick" style={{ height: '4px' }} /><div className="candle-body green" style={{ height: '14px' }} /><div className="candle-wick" style={{ height: '4px' }} /></div>
+                      <div className="candle-col"><div className="candle-wick" style={{ height: '5px' }} /><div className="candle-body green" style={{ height: '18px' }} /><div className="candle-wick" style={{ height: '4px' }} /></div>
+                      <div className="candle-col"><div className="candle-wick" style={{ height: '6px' }} /><div className="candle-body red" style={{ height: '10px' }} /><div className="candle-wick" style={{ height: '3px' }} /></div>
+                      <div className="candle-col"><div className="candle-wick" style={{ height: '4px' }} /><div className="candle-body green" style={{ height: '16px' }} /><div className="candle-wick" style={{ height: '5px' }} /></div>
+                      <div className="candle-col"><div className="candle-wick" style={{ height: '5px' }} /><div className="candle-body red" style={{ height: '9px' }} /><div className="candle-wick" style={{ height: '4px' }} /></div>
+                      <div className="candle-col"><div className="candle-wick" style={{ height: '4px' }} /><div className="candle-body green" style={{ height: '22px' }} /><div className="candle-wick" style={{ height: '5px' }} /></div>
+                      <div className="candle-col"><div className="candle-wick" style={{ height: '3px' }} /><div className="candle-body green" style={{ height: '26px' }} /><div className="candle-wick" style={{ height: '4px' }} /></div>
+                      <div className="candle-col"><div className="candle-wick" style={{ height: '5px' }} /><div className="candle-body red" style={{ height: '8px' }} /><div className="candle-wick" style={{ height: '3px' }} /></div>
+                      <div className="candle-col"><div className="candle-wick" style={{ height: '4px' }} /><div className="candle-body green" style={{ height: '28px' }} /><div className="candle-wick" style={{ height: '4px' }} /></div>
                     </div>
 
-                    {/* Base Volume Histogram */}
-                    <div className="panoramic-volume-bars">
-                      <span className="vol-bar green" style={{ height: '9px' }} />
-                      <span className="vol-bar green" style={{ height: '16px' }} />
-                      <span className="vol-bar red" style={{ height: '11px' }} />
-                      <span className="vol-bar green" style={{ height: '20px' }} />
+                    {/* Volume Histogram */}
+                    <div className="chart-volume-bars">
+                      <span className="vol-bar green" style={{ height: '8px' }} />
+                      <span className="vol-bar green" style={{ height: '13px' }} />
+                      <span className="vol-bar red" style={{ height: '9px' }} />
+                      <span className="vol-bar green" style={{ height: '15px' }} />
+                      <span className="vol-bar red" style={{ height: '8px' }} />
+                      <span className="vol-bar green" style={{ height: '19px' }} />
+                      <span className="vol-bar green" style={{ height: '22px' }} />
                       <span className="vol-bar red" style={{ height: '10px' }} />
-                      <span className="vol-bar green" style={{ height: '24px' }} />
-                      <span className="vol-bar green" style={{ height: '28px' }} />
-                      <span className="vol-bar red" style={{ height: '12px' }} />
-                      <span className="vol-bar green" style={{ height: '32px' }} />
-                      <span className="vol-bar green" style={{ height: '35px' }} />
+                      <span className="vol-bar green" style={{ height: '25px' }} />
                     </div>
 
                     {/* Time Ticks */}
                     <div className="chart-time-ticks">
                       <span>09:15</span>
-                      <span>10:30</span>
-                      <span>12:00</span>
-                      <span>13:30</span>
-                      <span>15:00</span>
-                      <span>CLOSE</span>
+                      <span>11:30</span>
+                      <span>13:45</span>
+                      <span>15:30</span>
                     </div>
                   </div>
                 </div>
 
-                {/* 3. Compact Editorial Dossier Footer */}
-                <div className="flagship-dossier-row">
-                  <div className="dossier-identity">
-                    <h3 id="project-signalforge-title" className="dossier-title">SignalForge</h3>
-                    <p className="dossier-description">
-                      A quantitative strategy backtesting platform engineered for multi-timeframe market data replay. Incorporates technical-indicator validation, regime classification, and cost/slippage modeling in a strict paper-trading simulation environment.
-                    </p>
+                {/* 3. Card Body: Identity, Description & Technologies */}
+                <div className="showcase-card-body">
+                  <div className="showcase-title-group">
+                    <h3 id="project-signalforge-title" className="showcase-card-title">SignalForge</h3>
+                    <span className="showcase-tagline">Quantitative Strategy &amp; Replay Engine</span>
                   </div>
 
-                  <div className="dossier-actions-col">
-                    <div className="dossier-tech-tags" aria-label="Technologies used in SignalForge">
-                      <span className="tech-badge">Python</span>
-                      <span className="tech-badge">Pandas</span>
-                      <span className="tech-badge">NumPy</span>
-                      <span className="tech-badge">pytest</span>
-                      <span className="tech-badge">Data Replay</span>
-                    </div>
+                  <p className="showcase-description">
+                    A quantitative strategy backtesting platform engineered for multi-timeframe market data replay. Incorporates technical-indicator validation, regime classification, and cost/slippage modeling in a strict paper-trading simulation environment.
+                  </p>
 
+                  <div className="showcase-tech-tags" aria-label="Technologies used in SignalForge">
+                    <span className="tech-badge">Python</span>
+                    <span className="tech-badge">Pandas</span>
+                    <span className="tech-badge">NumPy</span>
+                    <span className="tech-badge">pytest</span>
+                    <span className="tech-badge">Data Replay</span>
+                  </div>
+
+                  {/* 4. Action Bar */}
+                  <div className="showcase-actions-bar">
                     <a
                       href="https://github.com/sanketamte96k/SignalForge"
                       target="_blank"
@@ -1053,49 +1079,63 @@ export default function App() {
             </motion.article>
 
             {/* ================================================================
-                ROW 2: BALANCED SUPPORTING SHOWCASES (CMS & FLIPKART)
-                2-Column Asymmetric Grid with Distinctive Previews
+                PROJECT 02: COLLEGE MANAGEMENT SYSTEM
+                Institutional Workflow ERP & Admission Platform
                 ================================================================ */}
-            <div className="supporting-showcase-grid">
-              {/* PROJECT 02: College Management System */}
-              <motion.article
-                className="supporting-project-article"
-                variants={cardEntrance}
-                custom={2}
-                aria-labelledby="project-cms-title"
-              >
-                <Project3DCard className="supporting-project-card" glowColor="blue">
-                  {/* Meta Bar */}
-                  <div className="supporting-header-bar">
-                    <div className="supporting-index-group">
-                      <span className="editorial-num">02</span>
-                      <span className="editorial-divider" aria-hidden="true">/</span>
-                      <span className="supporting-category">INSTITUTIONAL WORKFLOW ERP</span>
-                    </div>
+            <motion.article
+              className="showcase-card-article"
+              variants={cardEntrance}
+              custom={2}
+              aria-labelledby="project-cms-title"
+            >
+              <Project3DCard className="showcase-project-card" glowColor="blue">
+                {/* 1. Header Bar */}
+                <div className="showcase-card-header">
+                  <div className="showcase-index-group">
+                    <span className="editorial-num">02</span>
+                    <span className="editorial-divider" aria-hidden="true">/</span>
+                    <span className="showcase-category">INSTITUTIONAL ERP</span>
+                  </div>
+                  <div className="showcase-header-actions">
+                    <span className="showcase-mode-pill">Admin Portal</span>
                     <a
                       href="https://github.com/sanketamte96k/College-Management-Administration-System"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="editorial-icon-link"
-                      aria-label="View College Management System code on GitHub"
+                      className="showcase-icon-link"
+                      aria-label="View College Management System code on GitHub in a new tab"
                     >
                       <GitHubIcon size={14} />
                       <ArrowUpRight size={13} aria-hidden="true" />
                     </a>
                   </div>
+                </div>
 
-                  {/* Software Preview: Clean Enterprise Admin Matrix */}
-                  <div className="supporting-preview-stage stage-erp" aria-hidden="true">
-                    <div className="erp-console-header">
-                      <span className="erp-app-label">ZEAL ERP • Student Administration</span>
+                {/* 2. Visual Preview: Enterprise Administration Console */}
+                <div className="showcase-preview-viewport stage-erp" aria-hidden="true">
+                  <div className="terminal-titlebar">
+                    <div className="terminal-dots">
+                      <span className="dot dot-close" />
+                      <span className="dot dot-min" />
+                      <span className="dot dot-max" />
+                    </div>
+                    <span className="terminal-path">zeal-erp // student_admin.py</span>
+                    <div className="terminal-quote-strip">
                       <span className="erp-status-indicator">Queue: Active</span>
+                    </div>
+                  </div>
+
+                  <div className="erp-preview-stage">
+                    <div className="erp-console-header">
+                      <span className="erp-app-label">ZEAL ERP • Student Admission Workflow</span>
+                      <span className="erp-sub-label">Verified DB</span>
                     </div>
 
                     <div className="erp-tabular-matrix">
                       <div className="erp-row erp-header-row">
                         <span className="col-prn">APPLICANT ID</span>
                         <span className="col-dept">DEPARTMENT</span>
-                        <span className="col-status">VERIFICATION</span>
+                        <span className="col-status">STATUS</span>
                       </div>
                       <div className="erp-row">
                         <span className="col-prn text-white">ZPRN: 124BT10420</span>
@@ -1106,6 +1146,11 @@ export default function App() {
                         <span className="col-prn text-white">ZPRN: 124BT10421</span>
                         <span className="col-dept">Fee Ledger</span>
                         <span className="col-status"><span className="status-dot violet" /> Paid [PDF]</span>
+                      </div>
+                      <div className="erp-row">
+                        <span className="col-prn text-white">ZPRN: 124BT10422</span>
+                        <span className="col-dept">Admission</span>
+                        <span className="col-status"><span className="status-dot blue" /> In Review</span>
                       </div>
                     </div>
 
@@ -1119,81 +1164,104 @@ export default function App() {
                       </div>
                     </div>
                   </div>
+                </div>
 
-                  {/* Narrative Body */}
-                  <div className="supporting-body">
-                    <div className="supporting-title-group">
-                      <h3 id="project-cms-title" className="supporting-title">College Management System</h3>
-                      <span className="supporting-tagline">Institutional ERP &amp; Automated Student Admission System</span>
-                    </div>
-
-                    <p className="supporting-description">
-                      A centralized institutional administration platform managing core college workflows. Streamlines student admission processing, automated ZPRN assignment, document verification, academic intake capacity, and fee ledgers with downloadable PDF receipts.
-                    </p>
-
-                    <div className="supporting-tech-tags" aria-label="Technologies used in College Management System">
-                      <span className="tech-badge">Python (Flask)</span>
-                      <span className="tech-badge">MySQL</span>
-                      <span className="tech-badge">HTML5 / JS</span>
-                      <span className="tech-badge">ReportLab (PDF)</span>
-                      <span className="tech-badge">Docker</span>
-                    </div>
-
-                    <div className="supporting-actions-bar">
-                      <a
-                        href="https://github.com/sanketamte96k/College-Management-Administration-System"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="studio-secondary-link"
-                        aria-label="View College Management System repository on GitHub in a new tab"
-                      >
-                        <GitHubIcon size={14} />
-                        <span>View on GitHub</span>
-                        <ArrowUpRight size={13} className="btn-arrow" aria-hidden="true" />
-                      </a>
-                    </div>
+                {/* 3. Card Body: Identity, Description & Technologies */}
+                <div className="showcase-card-body">
+                  <div className="showcase-title-group">
+                    <h3 id="project-cms-title" className="showcase-card-title">College Management System</h3>
+                    <span className="showcase-tagline">Institutional ERP &amp; Admission Workflow</span>
                   </div>
-                </Project3DCard>
-              </motion.article>
 
-              {/* PROJECT 03: Flipkart Clone */}
-              <motion.article
-                className="supporting-project-article"
-                variants={cardEntrance}
-                custom={3}
-                aria-labelledby="project-flipkart-title"
-              >
-                <Project3DCard className="supporting-project-card" glowColor="violet">
-                  {/* Meta Bar */}
-                  <div className="supporting-header-bar">
-                    <div className="supporting-index-group">
-                      <span className="editorial-num">03</span>
-                      <span className="editorial-divider" aria-hidden="true">/</span>
-                      <span className="supporting-category">FULL-STACK COMMERCE // PRODUCTION</span>
-                    </div>
+                  <p className="showcase-description">
+                    A centralized institutional administration platform managing core college workflows. Streamlines student admission processing, automated ZPRN assignment, document verification, academic intake capacity, and fee ledgers with downloadable PDF receipts.
+                  </p>
+
+                  <div className="showcase-tech-tags" aria-label="Technologies used in College Management System">
+                    <span className="tech-badge">Python (Flask)</span>
+                    <span className="tech-badge">MySQL</span>
+                    <span className="tech-badge">HTML5 / JS</span>
+                    <span className="tech-badge">ReportLab (PDF)</span>
+                    <span className="tech-badge">Docker</span>
+                  </div>
+
+                  {/* 4. Action Bar */}
+                  <div className="showcase-actions-bar">
+                    <a
+                      href="https://github.com/sanketamte96k/College-Management-Administration-System"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="studio-primary-link"
+                      aria-label="View College Management System repository on GitHub in a new tab"
+                    >
+                      <GitHubIcon size={14} />
+                      <span>View on GitHub</span>
+                      <ArrowUpRight size={13} className="btn-arrow" aria-hidden="true" />
+                    </a>
+                  </div>
+                </div>
+              </Project3DCard>
+            </motion.article>
+
+            {/* ================================================================
+                PROJECT 03: FLIPKART CLONE
+                Full-Stack Commerce // Production Live
+                ================================================================ */}
+            <motion.article
+              className="showcase-card-article"
+              variants={cardEntrance}
+              custom={3}
+              aria-labelledby="project-flipkart-title"
+            >
+              <Project3DCard className="showcase-project-card" glowColor="violet">
+                {/* 1. Header Bar */}
+                <div className="showcase-card-header">
+                  <div className="showcase-index-group">
+                    <span className="editorial-num">03</span>
+                    <span className="editorial-divider" aria-hidden="true">/</span>
+                    <span className="showcase-category">FULL-STACK COMMERCE</span>
+                  </div>
+                  <div className="showcase-header-actions">
+                    <span className="showcase-live-pill">
+                      <span className="pulse-dot green" /> Live
+                    </span>
                     <a
                       href="https://github.com/sanketamte96k/Flipkart-clone"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="editorial-icon-link"
-                      aria-label="View Flipkart Clone code on GitHub"
+                      className="showcase-icon-link"
+                      aria-label="View Flipkart Clone code on GitHub in a new tab"
                     >
                       <GitHubIcon size={14} />
                       <ArrowUpRight size={13} aria-hidden="true" />
                     </a>
                   </div>
+                </div>
 
-                  {/* Software Preview: Clean E-Commerce Storefront */}
-                  <div className="supporting-preview-stage stage-commerce" aria-hidden="true">
+                {/* 2. Visual Preview: Production Storefront & Shopping Workflow */}
+                <div className="showcase-preview-viewport stage-commerce" aria-hidden="true">
+                  <div className="terminal-titlebar">
+                    <div className="terminal-dots">
+                      <span className="dot dot-close" />
+                      <span className="dot dot-min" />
+                      <span className="dot dot-max" />
+                    </div>
+                    <span className="terminal-path">flipkart-clone // storefront</span>
+                    <div className="terminal-quote-strip">
+                      <span className="store-live-tag">Railway Live</span>
+                    </div>
+                  </div>
+
+                  <div className="commerce-preview-stage">
                     <div className="store-search-bar">
                       <ShoppingBag size={11} className="store-search-icon" />
                       <span className="store-search-placeholder">Search electronics, laptops, mobiles...</span>
-                      <span className="store-live-pill"><span className="pulse-dot green" /> Railway Live</span>
+                      <span className="store-cart-mini">Cart (1)</span>
                     </div>
 
                     <div className="store-product-micro">
                       <div className="product-info-left">
-                        <span className="product-category-text">ELECTRONICS &amp; COMPUTERS</span>
+                        <span className="product-category-text">ELECTRONICS &amp; RIGS</span>
                         <span className="product-name-text">ASUS ROG Gaming Rig</span>
                       </div>
                       <div className="product-pricing-box">
@@ -1214,54 +1282,100 @@ export default function App() {
                       <span className="auth-indicator">Bcrypt Session Auth</span>
                     </div>
                   </div>
+                </div>
 
-                  {/* Narrative Body */}
-                  <div className="supporting-body">
-                    <div className="supporting-title-group">
-                      <h3 id="project-flipkart-title" className="supporting-title">Flipkart Clone</h3>
-                      <span className="supporting-tagline">Production E-Commerce Platform &amp; Role-Based Admin Portal</span>
-                    </div>
-
-                    <p className="supporting-description">
-                      A full-stack e-commerce web platform inspired by Flipkart with complete customer shopping workflows and an administrative portal. Implements Bcrypt session authentication, dynamic multi-tier filtering, persistent cart/wishlist, and a role-based admin portal for inventory and order management.
-                    </p>
-
-                    <div className="supporting-tech-tags" aria-label="Technologies used in Flipkart Clone">
-                      <span className="tech-badge">Python (Flask)</span>
-                      <span className="tech-badge">SQLAlchemy</span>
-                      <span className="tech-badge">MySQL</span>
-                      <span className="tech-badge">Docker</span>
-                      <span className="tech-badge">Railway</span>
-                    </div>
-
-                    <div className="supporting-actions-bar dual-actions">
-                      <a
-                        href="https://flipkart-clone-production-0c44.up.railway.app"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="studio-live-btn"
-                        aria-label="Open Flipkart Clone Live Demo in a new tab"
-                      >
-                        <span>Live Demo</span>
-                        <ExternalLink size={13} aria-hidden="true" />
-                      </a>
-
-                      <a
-                        href="https://github.com/sanketamte96k/Flipkart-clone"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="studio-secondary-link"
-                        aria-label="View Flipkart Clone repository on GitHub in a new tab"
-                      >
-                        <GitHubIcon size={14} />
-                        <span>View on GitHub</span>
-                      </a>
-                    </div>
+                {/* 3. Card Body: Identity, Description & Technologies */}
+                <div className="showcase-card-body">
+                  <div className="showcase-title-group">
+                    <h3 id="project-flipkart-title" className="showcase-card-title">Flipkart Clone</h3>
+                    <span className="showcase-tagline">Production E-Commerce &amp; Role-Based Admin</span>
                   </div>
-                </Project3DCard>
-              </motion.article>
-            </div>
+
+                  <p className="showcase-description">
+                    A full-stack e-commerce web platform inspired by Flipkart with complete customer shopping workflows and an administrative portal. Implements Bcrypt session authentication, dynamic multi-tier filtering, persistent cart/wishlist, and a role-based admin portal for inventory and order management.
+                  </p>
+
+                  <div className="showcase-tech-tags" aria-label="Technologies used in Flipkart Clone">
+                    <span className="tech-badge">Python (Flask)</span>
+                    <span className="tech-badge">SQLAlchemy</span>
+                    <span className="tech-badge">MySQL</span>
+                    <span className="tech-badge">Docker</span>
+                    <span className="tech-badge">Railway</span>
+                  </div>
+
+                  {/* 4. Action Bar */}
+                  <div className="showcase-actions-bar dual-actions">
+                    <a
+                      href="https://flipkart-clone-production-0c44.up.railway.app"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="studio-live-btn"
+                      aria-label="Open Flipkart Clone Live Demo in a new tab"
+                    >
+                      <ExternalLink size={13} aria-hidden="true" />
+                      <span>Live Demo</span>
+                    </a>
+
+                    <a
+                      href="https://github.com/sanketamte96k/Flipkart-clone"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="studio-secondary-link"
+                      aria-label="View Flipkart Clone repository on GitHub in a new tab"
+                    >
+                      <GitHubIcon size={14} />
+                      <span>GitHub</span>
+                      <ArrowUpRight size={13} className="btn-arrow" aria-hidden="true" />
+                    </a>
+                  </div>
+                </div>
+              </Project3DCard>
+            </motion.article>
           </motion.div>
+
+          {/* Mobile & Tablet Interactive Navigation Controls (Hidden on Desktop) */}
+          <div className="mobile-showcase-controls" aria-label="Featured projects carousel controls">
+            <button
+              type="button"
+              className="showcase-nav-btn"
+              onClick={() => scrollToShowcaseCard(activeShowcaseIndex - 1)}
+              disabled={activeShowcaseIndex === 0}
+              aria-label="Previous project card"
+            >
+              <ChevronLeft size={16} aria-hidden="true" />
+            </button>
+
+            <div className="showcase-dots-indicator" role="tablist" aria-label="Select project card">
+              {[
+                { num: '01', name: 'SignalForge' },
+                { num: '02', name: 'College ERP' },
+                { num: '03', name: 'Flipkart Clone' },
+              ].map((proj, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeShowcaseIndex === idx}
+                  className={`showcase-dot-pill ${activeShowcaseIndex === idx ? 'active' : ''}`}
+                  onClick={() => scrollToShowcaseCard(idx)}
+                  aria-label={`Switch to project ${proj.num} ${proj.name}`}
+                >
+                  <span className="dot-index">{proj.num}</span>
+                  <span className="dot-name">{proj.name}</span>
+                </button>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              className="showcase-nav-btn"
+              onClick={() => scrollToShowcaseCard(activeShowcaseIndex + 1)}
+              disabled={activeShowcaseIndex === 2}
+              aria-label="Next project card"
+            >
+              <ChevronRight size={16} aria-hidden="true" />
+            </button>
+          </div>
         </section>
 
         {/* ==========================================================================
